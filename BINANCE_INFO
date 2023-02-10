@@ -1,0 +1,55 @@
+* only valid for 24 hour
+* endpoint: wss://stream.binance.com:9443 or wss://stream.binance.com:443
+* all symbols are lowercase
+* ping frame every 3 minutes
+* A single connection can listen to a maximum of 1024 streams.
+* orderbook can select update speed <symbol>@depth OR <symbol>@depth@100ms  (default 1000ms)
+
+WebSocket connections have a limit of 5 incoming messages per second. A message is considered:
+A PING frame
+A PONG frame
+A JSON controlled message (e.g. subscribe, unsubscribe)
+
+
+Live Subscribe
+* JSON payloads
+{
+"method": "SUBSCRIBE",
+"params":
+[
+"btcusdt@aggTrade",
+"btcusdt@depth"
+],
+"id": 1
+}
+
+Unsubscribe
+
+"method": "UNSUBSCRIBE",
+"params":
+[
+"btcusdt@depth"
+],
+"id": 312
+}
+
+Listing Subscriptions
+{
+"method": "LIST_SUBSCRIPTIONS",
+"id": 3
+}
+
+
+How to manage a local order book correctly
+1. Open a stream to wss://stream.binance.com:9443/ws/bnbbtc@depth.
+2. Buffer the events you receive from the stream.
+3. Get a depth snapshot from https://api.binance.com/api/v3/depth?symbol=BNBBTC&limit=1000 .
+4. Drop any event where u is <= lastUpdateId in the snapshot.
+5. The first processed event should have U <= lastUpdateId+1 AND u >= lastUpdateId+1.
+6. While listening to the stream, each new event's U should be equal to the previous event's u+1.
+7. The data in each event is the absolute quantity for a price level.
+8. If the quantity is 0, remove the price level.
+9. Receiving an event that removes a price level that is not in your local order book can happen and is normal.
+
+Note: Due to depth snapshots having a limit on the number of price levels, a price level outside of the 
+initial snapshot that doesn't have a quantity change won't have an update in the Diff. Depth Stream. Consequently, those price levels will not be visible in the local order book even when applying all updates from the Diff. Depth Stream correctly and cause the local order book to have some slight differences with the real order book. However, for most use cases the depth limit of 5000 is enough to understand the market and trade effectively.

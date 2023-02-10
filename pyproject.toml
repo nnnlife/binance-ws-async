@@ -1,0 +1,63 @@
+[build-system]
+requires = ["setuptools>=61.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "binance-ws-async"
+version = "0.1.0"
+maintainers = [
+    {name = "Yongwoo Park", email = "nnnlife@gmail.com"},
+]
+license = {text = "BSD-3-Clause"}
+description = "binance simple ws library" 
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: BSD License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.4",
+    "Programming Language :: Python :: 3.5",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: Jython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Topic :: Communications",
+    "Topic :: Internet",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: System :: Networking",
+]
+dependencies = [
+    "websockets >= 10.3",
+    "certifi>=2022.12.7",
+    "charset-normalizer>=3.0.1",
+    "idna>=3.4",
+    "pycryptodome>=3.17",
+    "requests>=2.28.2",
+    "urllib3>=1.26.14"
+]
+requires-python = ">=3.7"
+
+[project.readme]
+file = "README.rst"
+content-type = "text/x-rst"
+
+[project.urls]
+Homepage = "https://github.com/nnnlife/binance-ws-async"
+Source = "https://github.com/nnnlife/binance-ws-async"
+
+[project.optional-dependencies]
+
+[tool.setuptools]
+zip-safe = true
+include-package-data = false
+packages = ["binance_aio", "binance_aio.test"]
+
+[tool.setuptools.package-data]
+"*" = ["LICENSE", "README.rst"]
