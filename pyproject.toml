@@ -57,7 +57,7 @@ Source = "https://github.com/nnnlife/binance-ws-async"
 [tool.setuptools]
 zip-safe = true
 include-package-data = false
-packages = ["binance_aio", "binance_aio.test"]
+packages = ["binance_aio"]
 
 [tool.setuptools.package-data]
 "*" = ["LICENSE", "README.rst"]
